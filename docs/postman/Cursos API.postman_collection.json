@@ -1,0 +1,670 @@
+{
+  "info": {
+    "_postman_id": "c9ec559c-e159-46a6-8463-721e6ebf871a",
+    "name": "Cursos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12212450"
+  },
+  "item": [
+    {
+      "name": "Consultar curso por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cursos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 - Curso encontrado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:29:47 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"codigo\": \"JAVA-01\",\n  \"nombre\": \"Introducción a Java actualizado\",\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\n  \"modalidad\": \"VIRTUAL\",\n  \"cupo\": 25,\n  \"fechaInicio\": \"2026-10-20\",\n  \"activo\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Actualizar con cupo inválido",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java actualizado\",\r\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 41,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cursos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "400 Bad Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java actualizado\",\r\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 41,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:35:42 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"timestamp\": \"2026-10-15T02:35:42.772+00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"path\": \"/api/cursos/1\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Registrar curso",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"codigo\": \"SQL-01\",\r\n  \"nombre\": \"Fundamentos de SQL\",\r\n  \"descripcion\": \"Aprende a consultar y administrar datos en bases de datos relacionales.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 30,\r\n  \"fechaInicio\": \"2026-10-26\",\r\n  \"activo\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "409 Conflict",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java\",\r\n  \"descripcion\": \"Fundamentos de programación con Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 20,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cursos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:48:21 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"timestamp\": \"2026-10-15T02:48:21.119+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+        },
+        {
+          "name": "201 - Curso creado",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"codigo\": \"SQL-01\",\r\n  \"nombre\": \"Fundamentos de SQL\",\r\n  \"descripcion\": \"Aprende a consultar y administrar datos en bases de datos relacionales.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 30,\r\n  \"fechaInicio\": \"2026-10-26\",\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cursos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:50:34 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 2,\n  \"codigo\": \"SQL-01\",\n  \"nombre\": \"Fundamentos de SQL\",\n  \"descripcion\": \"Aprende a consultar y administrar datos en bases de datos relacionales.\",\n  \"modalidad\": \"VIRTUAL\",\n  \"cupo\": 30,\n  \"fechaInicio\": \"2026-10-26\",\n  \"activo\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Listar cursos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 - Lista de cursos",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cursos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:38:48 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"id\": 1,\n    \"codigo\": \"JAVA-01\",\n    \"nombre\": \"Introducción a Java actualizado\",\n    \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\n    \"modalidad\": \"VIRTUAL\",\n    \"cupo\": 25,\n    \"fechaInicio\": \"2026-10-20\",\n    \"activo\": true\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Consultar curso por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cursos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 - Curso encontrado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:39:30 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"codigo\": \"JAVA-01\",\n  \"nombre\": \"Introducción a Java actualizado\",\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\n  \"modalidad\": \"VIRTUAL\",\n  \"cupo\": 25,\n  \"fechaInicio\": \"2026-10-20\",\n  \"activo\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Actualizar curso",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java actualizado\",\r\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 25,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "200 - Curso actualizado",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java actualizado\",\r\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\r\n  \"modalidad\": \"VIRTUAL\",\r\n  \"cupo\": 25,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:54:26 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"codigo\": \"JAVA-01\",\n  \"nombre\": \"Introducción a Java actualizado\",\n  \"descripcion\": \"Fundamentos de Java y programación orientada a objetos.\",\n  \"modalidad\": \"VIRTUAL\",\n  \"cupo\": 25,\n  \"fechaInicio\": \"2026-10-20\",\n  \"activo\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Consultar curso inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cursos/99999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos",
+            "99999"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "404 - Curso no encontrado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/99999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "99999"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:54:57 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"timestamp\": \"2026-10-15T02:54:57.518+00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"path\": \"/api/cursos/99999\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Registrar código duplicado",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java\",\r\n  \"descripcion\": \"Fundamentos de programación con Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 20,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cursos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "409 - Código duplicado",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java\",\r\n  \"descripcion\": \"Fundamentos de programación con Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 20,\r\n  \"fechaInicio\": \"2026-10-20\",\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cursos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cursos",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "date",
+              "value": "Thu, 15 Oct 2026 02:42:14 GMT"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"timestamp\": \"2026-10-15T02:42:14.790+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+        }
+      ]
+    }
+  ]
+}
