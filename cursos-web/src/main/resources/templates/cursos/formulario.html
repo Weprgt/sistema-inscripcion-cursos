@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrar curso</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243247;
+            background: #f3f5f8;
+        }
+
+        header {
+            padding: 22px 6%;
+            color: white;
+            background: #243247;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        h1 { margin-top: 0; }
+
+        .campos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .completo { grid-column: 1 / -1; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .error {
+            margin-top: 6px;
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+        .aviso {
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #fee2e2;
+            border-radius: 6px;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-top: 28px;
+        }
+
+        button {
+            padding: 12px 20px;
+            color: white;
+            background: #243247;
+            border: 0;
+            border-radius: 6px;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        a { color: #243247; }
+
+        @media (max-width: 600px) {
+            .campos { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>Sistema de inscripción a cursos</strong>
+</header>
+
+<main>
+    <section class="panel">
+        <h1>Registrar curso</h1>
+        <p>Todos los campos son obligatorios.</p>
+
+        <form th:action="@{/cursos}"
+              th:object="${curso}"
+              method="post">
+
+            <div class="aviso error"
+                 role="alert"
+                 th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="error : ${#fields.globalErrors()}"
+                   th:text="${error}"></p>
+            </div>
+
+            <div class="campos">
+                <div>
+                    <label for="codigo">Código</label>
+                    <input id="codigo" type="text"
+                           th:field="*{codigo}"
+                           maxlength="20" required>
+                    <p class="error" th:errors="*{codigo}"></p>
+                </div>
+
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text"
+                           th:field="*{nombre}"
+                           maxlength="100" required>
+                    <p class="error" th:errors="*{nombre}"></p>
+                </div>
+
+                <div class="completo">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion"
+                              th:field="*{descripcion}"
+                              maxlength="500" required></textarea>
+                    <p class="error" th:errors="*{descripcion}"></p>
+                </div>
+
+                <div>
+                    <label for="modalidad">Modalidad</label>
+                    <select id="modalidad"
+                            th:field="*{modalidad}" required>
+                        <option value="">Selecciona una modalidad</option>
+                        <option value="PRESENCIAL">Presencial</option>
+                        <option value="VIRTUAL">Virtual</option>
+                        <option value="MIXTA">Mixta</option>
+                    </select>
+                    <p class="error" th:errors="*{modalidad}"></p>
+                </div>
+
+                <div>
+                    <label for="fechaInicio">Fecha de inicio</label>
+                    <input id="fechaInicio" type="date"
+                           th:field="*{fechaInicio}" required>
+                    <p class="error" th:errors="*{fechaInicio}"></p>
+                </div>
+
+                <div>
+                    <label for="cupo">Cupo total</label>
+                    <input id="cupo" type="number"
+                           th:field="*{cupo}"
+                           min="1" max="40" step="1" required>
+                    <p class="error" th:errors="*{cupo}"></p>
+                </div>
+
+                <div>
+                    <label for="activo">Estado</label>
+                    <select id="activo" th:field="*{activo}" required>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                    <p class="error" th:errors="*{activo}"></p>
+                </div>
+            </div>
+
+            <div class="acciones">
+                <button type="submit">Guardar curso</button>
+                <a th:href="@{/cursos}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>
