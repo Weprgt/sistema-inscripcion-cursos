@@ -87,4 +87,17 @@ public class CursoDaoJpa implements GenericDao<Curso, Long> {
 
         return consulta.getSingleResult() > 0;
     }
+    /**
+     * Busca y bloquea el curso durante una operación de inscripción.
+     * @param id identificador del curso
+     * @return curso encontrado o un Optional vacío
+     */
+    @Transactional
+    public Optional<Curso> buscarPorIdConBloqueo(Long id) {
+        return Optional.ofNullable(entityManager.find(
+                Curso.class,
+                id,
+                jakarta.persistence.LockModeType.PESSIMISTIC_WRITE
+        ));
+    }
 }

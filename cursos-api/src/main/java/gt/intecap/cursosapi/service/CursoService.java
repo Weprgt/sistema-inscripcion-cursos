@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import gt.intecap.cursosapi.dao.InscripcionDaoJpa;
 
 import java.util.List;
 
@@ -17,13 +18,18 @@ import java.util.List;
 public class CursoService {
 
     private final CursoDaoJpa cursoDao;
+    private final InscripcionDaoJpa inscripcionDao;
 
     /**
      * Inicializa el servicio.
      * @param cursoDao acceso a los cursos
      */
-    public CursoService(CursoDaoJpa cursoDao) {
+    public CursoService(
+            CursoDaoJpa cursoDao,
+            InscripcionDaoJpa inscripcionDao
+    ) {
         this.cursoDao = cursoDao;
+        this.inscripcionDao = inscripcionDao;
     }
 
     /**
@@ -68,10 +74,25 @@ public class CursoService {
      */
     @Transactional
     public Curso actualizar(Long id, Curso datos) {
-        Curso curso = buscarPorId(id);
+        Curso curso = cursoDao.buscarPorIdConBloqueo(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "El curso no existe"
+                ));
 
         normalizarTextos(datos);
         validarCodigo(datos.getCodigo(), id);
+
+        long inscritosActivos =
+                inscripcionDao.contarActivasPorCurso(id);
+
+        if (datos.getCupo() < inscritosActivos) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "El cupo no puede ser menor que la cantidad "
+                            + "de inscripciones activas"
+            );
+        }
 
         curso.setCodigo(datos.getCodigo());
         curso.setNombre(datos.getNombre());
