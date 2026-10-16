@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import gt.intecap.cursosapi.dao.InscripcionDaoJpa;
+import gt.intecap.cursosapi.dto.CupoCursoRespuesta;
 
 import java.util.List;
 
@@ -103,6 +104,27 @@ public class CursoService {
         curso.setActivo(datos.getActivo());
 
         return cursoDao.guardar(curso);
+    }
+
+    /**
+     * Consulta la capacidad y ocupación de un curso.
+     * @param id identificador del curso
+     * @return resumen de cupos
+     */
+    public CupoCursoRespuesta consultarCupos(Long id) {
+        Curso curso = buscarPorId(id);
+
+        long ocupados = inscripcionDao.contarActivasPorCurso(id);
+        long disponibles = curso.getCupo() - ocupados;
+
+        return new CupoCursoRespuesta(
+                curso.getId(),
+                curso.getNombre(),
+                Boolean.TRUE.equals(curso.getActivo()),
+                curso.getCupo(),
+                ocupados,
+                disponibles
+        );
     }
 
     private void normalizarTextos(Curso curso) {

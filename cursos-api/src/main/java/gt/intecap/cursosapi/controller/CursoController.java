@@ -5,6 +5,7 @@ import gt.intecap.cursosapi.service.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import gt.intecap.cursosapi.dto.CupoCursoRespuesta;
 
 import java.util.List;
 
@@ -67,5 +68,15 @@ public class CursoController {
             @Valid @RequestBody Curso curso
     ) {
         return cursoService.actualizar(id, curso);
+    }
+
+    /**
+     * Consulta los cupos de un curso.
+     * @param id identificador del curso
+     * @return capacidad y ocupación actual
+     */
+    @GetMapping("/{id}/cupos")
+    public CupoCursoRespuesta consultarCupos(@PathVariable Long id) {
+        return cursoService.consultarCupos(id);
     }
 }
