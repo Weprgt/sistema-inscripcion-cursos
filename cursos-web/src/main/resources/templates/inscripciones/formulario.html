@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrar inscripción</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243247;
+            background: #f3f5f8;
+        }
+
+        header {
+            padding: 22px 6%;
+            color: white;
+            background: #243247;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        h1 { margin-top: 0; }
+
+        label {
+            display: block;
+            margin: 24px 0 8px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+        .aviso {
+            padding: 12px;
+            margin: 20px 0;
+            background: #fff3cd;
+            border-radius: 6px;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-top: 28px;
+        }
+
+        button {
+            padding: 12px 20px;
+            color: white;
+            background: #243247;
+            border: 0;
+            border-radius: 6px;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        a { color: #243247; }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>Sistema de inscripción a cursos</strong>
+</header>
+
+<main>
+    <section class="panel">
+        <h1>Registrar inscripción</h1>
+        <p>Selecciona un curso y un participante.</p>
+
+        <div class="aviso" role="alert" th:if="${errorOpciones}">
+            <p th:text="${errorOpciones}"></p>
+            <a th:href="@{/inscripciones/nueva}">Reintentar</a>
+        </div>
+
+        <div class="aviso"
+             th:if="${opcionesDisponibles
+                 and #lists.isEmpty(cursos)}">
+            No hay cursos activos.
+            <a th:href="@{/cursos/nuevo}">Registrar curso</a>
+        </div>
+
+        <div class="aviso"
+             th:if="${opcionesDisponibles
+                 and #lists.isEmpty(participantes)}">
+            No hay participantes registrados.
+            <a th:href="@{/participantes/nuevo}">
+                Registrar participante
+            </a>
+        </div>
+
+        <form th:action="@{/inscripciones}"
+              th:object="${inscripcion}"
+              method="post">
+
+            <div class="aviso error"
+                 role="alert"
+                 th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="error : ${#fields.globalErrors()}"
+                   th:text="${error}"></p>
+            </div>
+
+            <label for="idCurso">Curso</label>
+            <select id="idCurso"
+                    th:field="*{idCurso}"
+                    required>
+                <option value="">Selecciona un curso</option>
+                <option th:each="curso : ${cursos}"
+                        th:value="${curso.id}"
+                        th:text="${curso.codigo + ' - ' + curso.nombre}">
+                </option>
+            </select>
+            <p class="error" th:errors="*{idCurso}"></p>
+
+            <label for="idParticipante">Participante</label>
+            <select id="idParticipante"
+                    th:field="*{idParticipante}"
+                    required>
+                <option value="">Selecciona un participante</option>
+                <option th:each="participante : ${participantes}"
+                        th:value="${participante.id}"
+                        th:text="${participante.nombres + ' '
+                            + participante.apellidos
+                            + ' - ' + participante.correo}">
+                </option>
+            </select>
+            <p class="error" th:errors="*{idParticipante}"></p>
+
+            <p>
+                Si la inscripción estaba cancelada, se reactivará
+                cuando el curso tenga cupo disponible.
+            </p>
+
+            <div class="acciones">
+                <button type="submit"
+                        th:disabled="${!opcionesDisponibles
+                            or #lists.isEmpty(cursos)
+                            or #lists.isEmpty(participantes)}">
+                    Guardar inscripción
+                </button>
+
+                <a th:href="@{/inscripciones}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

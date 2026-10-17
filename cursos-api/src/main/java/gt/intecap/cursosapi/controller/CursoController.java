@@ -79,4 +79,13 @@ public class CursoController {
     public CupoCursoRespuesta consultarCupos(@PathVariable Long id) {
         return cursoService.consultarCupos(id);
     }
+    /**
+     * Elimina un curso sin inscripciones.
+     * @param id identificador del curso
+     */
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        cursoService.eliminar(id);
+    }
 }

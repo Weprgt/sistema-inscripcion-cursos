@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscripciones | Sistema de cursos</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243247;
+            background: #f3f5f8;
+        }
+
+        header {
+            padding: 22px 6%;
+            color: white;
+            background: #243247;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        h1 { margin-top: 0; }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        a { color: #243247; }
+        .tabla { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th { background: #f8fafc; }
+
+        .exito { color: #166534; }
+        .error { color: #b91c1c; }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>Sistema de inscripción a cursos</strong>
+</header>
+<nav aria-label="Navegación principal"
+     style="padding: 16px 6%; background: white;
+            display: flex; flex-wrap: wrap; gap: 24px;">
+    <a th:href="@{/cursos}">Cursos</a>
+    <a th:href="@{/participantes}">Participantes</a>
+    <a th:href="@{/inscripciones}">Inscripciones</a>
+</nav>
+<main>
+    <section class="panel">
+        <h1>Inscripciones</h1>
+        <p>Consulta las inscripciones activas y canceladas.</p>
+
+        <p class="exito"
+           role="status"
+           th:if="${mensajeExito}"
+           th:text="${mensajeExito}"></p>
+
+        <div th:if="${errorListado}" role="alert">
+            <p class="error" th:text="${errorListado}"></p>
+            <a th:href="@{/inscripciones}">Reintentar</a>
+        </div>
+
+        <div class="acciones">
+            <a th:href="@{/inscripciones/nueva}">
+                + Registrar inscripción
+            </a>
+        </div>
+
+        <p th:if="${errorListado == null
+                and #lists.isEmpty(inscripciones)}">
+            Aún no hay inscripciones registradas.
+        </p>
+
+        <div class="tabla"
+             th:unless="${#lists.isEmpty(inscripciones)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Curso</th>
+                    <th>Participante</th>
+                    <th>Fecha de inscripción</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="inscripcion : ${inscripciones}">
+                    <td>
+                        <a th:href="@{/cursos/{id}(
+                                id=${inscripcion.idCurso})}"
+                           th:text="${inscripcion.nombreCurso}">
+                        </a>
+                    </td>
+                    <td th:text="${inscripcion.nombreParticipante}"></td>
+                    <td th:text="${inscripcion.fechaInscripcion}"></td>
+                    <td th:text="${inscripcion.estado}"></td>
+                    <td>
+                        <form th:if="${inscripcion.estado == 'ACTIVA'}"
+                              th:action="@{/inscripciones/{id}/cancelar(id=${inscripcion.id})}"
+                              method="post"
+                              onsubmit="return confirm('¿Cancelar esta inscripción?');">
+                            <button type="submit">Cancelar inscripción</button>
+                        </form>
+                        <form th:if="${inscripcion.estado == 'CANCELADA'}"
+                              th:action="@{/inscripciones/reactivar}"
+                              method="post"
+                              onsubmit="return confirm('¿Reactivar esta inscripción?');">
+
+                            <input type="hidden"
+                                   name="idCurso"
+                                   th:value="${inscripcion.idCurso}">
+
+                            <input type="hidden"
+                                   name="idParticipante"
+                                   th:value="${inscripcion.idParticipante}">
+
+                            <button type="submit">Reactivar inscripción</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -93,7 +93,13 @@
 <header>
     <strong>Sistema de inscripción a cursos</strong>
 </header>
-
+<nav aria-label="Navegación principal"
+     style="padding: 16px 6%; background: white;
+            display: flex; flex-wrap: wrap; gap: 24px;">
+    <a th:href="@{/cursos}">Cursos</a>
+    <a th:href="@{/participantes}">Participantes</a>
+    <a th:href="@{/inscripciones}">Inscripciones</a>
+</nav>
 <main>
     <section class="panel">
         <h1>Cursos</h1>
@@ -107,17 +113,13 @@
            style="color: #166534;">
         </p>
 
-        <p>
-            <a th:href="@{/cursos/nuevo}">+ Registrar curso</a>
-        </p>
-
         <div th:if="${errorListado}" role="alert">
             <p th:text="${errorListado}" style="color: #b91c1c;"></p>
             <a th:href="@{/cursos}">Reintentar</a>
         </div>
 
-        <p class="vacio" th:if="${errorListado == null and #lists.isEmpty(cursos)}">
-            Aún no hay cursos registrados.
+        <p>
+            <a th:href="@{/cursos/nuevo}">+ Registrar curso</a>
         </p>
 
         <div class="tabla" th:unless="${#lists.isEmpty(cursos)}">
@@ -150,6 +152,12 @@
                         <a th:href="@{/cursos/{id}/editar(id=${curso.id})}">
                             Editar
                         </a>
+                        <form th:action="@{/cursos/{id}/eliminar(id=${curso.id})}"
+                              method="post"
+                              style="display: inline;"
+                              onsubmit="return confirm('¿Eliminar este curso definitivamente?');">
+                            <button type="submit">Eliminar</button>
+                        </form>
                     </td>
                     <td>
                         <span class="estado"

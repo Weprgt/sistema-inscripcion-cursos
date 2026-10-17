@@ -141,4 +141,25 @@ public class CursoService {
             );
         }
     }
+    /**
+     * Elimina un curso únicamente si no tiene inscripciones.
+     * @param id identificador del curso
+     */
+    @Transactional
+    public void eliminar(Long id) {
+        cursoDao.buscarPorIdConBloqueo(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "El curso no existe"
+                ));
+
+        if (inscripcionDao.existePorCurso(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "No se puede eliminar un curso con inscripciones"
+            );
+        }
+
+        cursoDao.eliminarPorId(id);
+    }
 }

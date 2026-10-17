@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Participantes | Sistema de inscripciones</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243247;
+            background: #f3f5f8;
+        }
+
+        header {
+            padding: 22px 6%;
+            color: white;
+            background: #243247;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        h1 { margin-top: 0; }
+
+        .acciones {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 24px 0;
+        }
+
+        a { color: #243247; }
+
+        .tabla { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th { background: #f8fafc; }
+
+        .exito { color: #166534; }
+        .error { color: #b91c1c; }
+        .vacio { padding: 24px 0; color: #64748b; }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>Sistema de inscripción a cursos</strong>
+</header>
+<nav aria-label="Navegación principal"
+     style="padding: 16px 6%; background: white;
+            display: flex; flex-wrap: wrap; gap: 24px;">
+    <a th:href="@{/cursos}">Cursos</a>
+    <a th:href="@{/participantes}">Participantes</a>
+    <a th:href="@{/inscripciones}">Inscripciones</a>
+</nav>
+<main>
+    <section class="panel">
+        <h1>Participantes</h1>
+        <p>Consulta y administra los participantes registrados.</p>
+
+        <p class="exito"
+           role="status"
+           th:if="${mensajeExito}"
+           th:text="${mensajeExito}"></p>
+
+        <div th:if="${errorListado}" role="alert">
+            <p class="error" th:text="${errorListado}"></p>
+            <a th:href="@{/participantes}">Reintentar</a>
+        </div>
+
+        <div class="acciones">
+            <a th:href="@{/participantes/nuevo}">
+                + Registrar participante
+            </a>
+        </div>
+
+        <p class="vacio"
+           th:if="${errorListado == null
+               and #lists.isEmpty(participantes)}">
+            Aún no hay participantes registrados.
+        </p>
+
+        <div class="tabla"
+             th:unless="${#lists.isEmpty(participantes)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="participante : ${participantes}">
+                    <td th:text="${participante.nombres}"></td>
+                    <td th:text="${participante.apellidos}"></td>
+                    <td th:text="${participante.correo}"></td>
+                    <td th:text="${participante.telefono}"></td>
+                    <td>
+                        <a th:href="@{/participantes/{id}/editar(
+                                id=${participante.id})}">
+                            Editar
+                        </a>
+                        <form th:action="@{/participantes/{id}/eliminar(
+                              id=${participante.id})}"
+                              method="post"
+                              style="display: inline;"
+                              onsubmit="return confirm('¿Eliminar este participante definitivamente?');">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -228,4 +228,39 @@ public class CursoWebController {
 
         return "redirect:/cursos";
     }
+    /**
+     * Elimina el curso y regresa al listado.
+     */
+    @PostMapping("/{id}/eliminar")
+    public String eliminar(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            cursoApiClient.eliminar(id);
+
+            redirectAttributes.addFlashAttribute(
+                    "mensajeExito",
+                    "Curso eliminado correctamente"
+            );
+
+        } catch (RestClientResponseException ex) {
+            String mensaje = switch (ex.getStatusCode().value()) {
+                case 404 -> "El curso ya no existe.";
+                case 409 -> "No se puede eliminar un curso con inscripciones, "
+                        + "aunque estén canceladas.";
+                default -> "No se pudo eliminar el curso.";
+            };
+
+            redirectAttributes.addFlashAttribute("errorListado", mensaje);
+
+        } catch (RestClientException ex) {
+            redirectAttributes.addFlashAttribute(
+                    "errorListado",
+                    "No se pudo conectar con la API."
+            );
+        }
+
+        return "redirect:/cursos";
+    }
 }

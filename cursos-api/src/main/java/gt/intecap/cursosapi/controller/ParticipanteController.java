@@ -68,4 +68,13 @@ public class ParticipanteController {
     ) {
         return participanteService.actualizar(id, participante);
     }
+    /**
+     * Elimina un participante sin inscripciones.
+     * @param id identificador del participante
+     */
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        participanteService.eliminar(id);
+    }
 }

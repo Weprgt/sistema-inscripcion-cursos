@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ResponseStatusException;
+import gt.intecap.cursosapi.dao.InscripcionDaoJpa;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,13 +23,19 @@ import java.util.Locale;
 public class ParticipanteService {
 
     private final ParticipanteDaoJpa participanteDao;
+    private final InscripcionDaoJpa inscripcionDao;
+
 
     /**
      * Inicializa el servicio.
      * @param participanteDao acceso a los participantes
      */
-    public ParticipanteService(ParticipanteDaoJpa participanteDao) {
+    public ParticipanteService(
+            ParticipanteDaoJpa participanteDao,
+            InscripcionDaoJpa inscripcionDao
+    ) {
         this.participanteDao = participanteDao;
+        this.inscripcionDao = inscripcionDao;
     }
 
     /**
@@ -88,6 +95,23 @@ public class ParticipanteService {
         participante.setTelefono(datos.getTelefono());
 
         return participanteDao.guardar(participante);
+    }
+    /**
+     * Elimina un participante únicamente si no tiene inscripciones.
+     * @param id identificador del participante
+     */
+    @Transactional
+    public void eliminar(Long id) {
+        buscarPorId(id);
+
+        if (inscripcionDao.existePorParticipante(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "No se puede eliminar un participante con inscripciones"
+            );
+        }
+
+        participanteDao.eliminarPorId(id);
     }
 
     private void normalizarTextos(Participante participante) {

@@ -87,4 +87,13 @@ public class CursoApiClient {
                 .body(new ParameterizedTypeReference<
                         List<InscripcionRespuesta>>() {});
     }
+    /**
+     * Solicita eliminar un curso sin inscripciones.
+     */
+    public void eliminar(Long id) {
+        restClient.delete()
+                .uri("/api/cursos/{id}", id)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }
