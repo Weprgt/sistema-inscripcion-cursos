@@ -110,8 +110,13 @@
         <p>
             <a th:href="@{/cursos/nuevo}">+ Registrar curso</a>
         </p>
-        
-        <p class="vacio" th:if="${#lists.isEmpty(cursos)}">
+
+        <div th:if="${errorListado}" role="alert">
+            <p th:text="${errorListado}" style="color: #b91c1c;"></p>
+            <a th:href="@{/cursos}">Reintentar</a>
+        </div>
+
+        <p class="vacio" th:if="${errorListado == null and #lists.isEmpty(cursos)}">
             Aún no hay cursos registrados.
         </p>
 

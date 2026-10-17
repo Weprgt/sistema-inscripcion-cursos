@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cursos")
@@ -23,7 +24,16 @@ public class CursoWebController {
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("cursos", cursoApiClient.listar());
+        try {
+            model.addAttribute("cursos", cursoApiClient.listar());
+        } catch (RestClientException ex) {
+            model.addAttribute("cursos", List.of());
+            model.addAttribute(
+                    "errorListado",
+                    "No se pudieron cargar los cursos. Inténtalo de nuevo."
+            );
+        }
+
         return "cursos/listado";
     }
 
