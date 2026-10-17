@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import gt.intecap.cursosweb.dto.CursoSolicitud;
 import org.springframework.http.MediaType;
+import gt.intecap.cursosweb.dto.CupoCursoRespuesta;
+import gt.intecap.cursosweb.dto.InscripcionRespuesta;
 
 import java.util.List;
 
@@ -43,5 +45,46 @@ public class CursoApiClient {
                 .body(solicitud)
                 .retrieve()
                 .body(CursoRespuesta.class);
+    }
+    /**
+     * Consulta un curso por su identificador.
+     */
+    public CursoRespuesta buscarPorId(Long id) {
+        return restClient.get()
+                .uri("/api/cursos/{id}", id)
+                .retrieve()
+                .body(CursoRespuesta.class);
+    }
+
+    /**
+     * Actualiza un curso mediante la API.
+     */
+    public CursoRespuesta actualizar(Long id, CursoSolicitud solicitud) {
+        return restClient.put()
+                .uri("/api/cursos/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(solicitud)
+                .retrieve()
+                .body(CursoRespuesta.class);
+    }
+    /**
+     * Consulta los cupos de un curso.
+     */
+    public CupoCursoRespuesta consultarCupos(Long id) {
+        return restClient.get()
+                .uri("/api/cursos/{id}/cupos", id)
+                .retrieve()
+                .body(CupoCursoRespuesta.class);
+    }
+
+    /**
+     * Consulta las inscripciones activas y canceladas de un curso.
+     */
+    public List<InscripcionRespuesta> listarInscripciones(Long idCurso) {
+        return restClient.get()
+                .uri("/api/inscripciones/curso/{idCurso}", idCurso)
+                .retrieve()
+                .body(new ParameterizedTypeReference<
+                        List<InscripcionRespuesta>>() {});
     }
 }

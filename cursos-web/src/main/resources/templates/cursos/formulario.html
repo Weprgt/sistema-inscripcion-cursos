@@ -107,10 +107,14 @@
 
 <main>
     <section class="panel">
-        <h1>Registrar curso</h1>
+        <h1 th:text="${idCurso != null}
+        ? 'Editar curso' : 'Registrar curso'">
+            Registrar curso
+        </h1>
         <p>Todos los campos son obligatorios.</p>
 
-        <form th:action="@{/cursos}"
+        <form th:action="${idCurso != null}
+          ? @{/cursos/{id}(id=${idCurso})} : @{/cursos}"
               th:object="${curso}"
               method="post">
 
@@ -184,7 +188,11 @@
             </div>
 
             <div class="acciones">
-                <button type="submit">Guardar curso</button>
+                <button type="submit"
+                        th:text="${idCurso != null}
+            ? 'Guardar cambios' : 'Guardar curso'">
+                    Guardar curso
+                </button>
                 <a th:href="@{/cursos}">Cancelar</a>
             </div>
         </form>

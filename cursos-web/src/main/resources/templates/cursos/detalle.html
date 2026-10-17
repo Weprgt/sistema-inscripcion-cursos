@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle del curso</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243247;
+            background: #f3f5f8;
+        }
+
+        header {
+            padding: 22px 6%;
+            color: white;
+            background: #243247;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        h1 { margin-top: 0; }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin: 28px 0;
+        }
+
+        .tarjeta {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .numero {
+            display: block;
+            margin-top: 10px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .tabla { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th { background: #f8fafc; }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        a { color: #243247; }
+
+        .aviso {
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .resumen { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>Sistema de inscripción a cursos</strong>
+</header>
+
+<main>
+    <section class="panel">
+        <h1 th:text="${curso.nombre}"></h1>
+
+        <p>
+            <strong>Código:</strong>
+            <span th:text="${curso.codigo}"></span>
+        </p>
+
+        <p th:text="${curso.descripcion}"></p>
+
+        <p>
+            <strong>Modalidad:</strong>
+            <span th:text="${curso.modalidad}"></span>
+        </p>
+
+        <p>
+            <strong>Fecha de inicio:</strong>
+            <span th:text="${curso.fechaInicio}"></span>
+        </p>
+
+        <p>
+            <strong>Estado:</strong>
+            <span th:text="${curso.activo == true}
+                ? 'Activo' : 'Inactivo'"></span>
+        </p>
+
+        <p class="aviso" th:if="${curso.activo != true}">
+            El curso está inactivo y no admite nuevas inscripciones
+            ni reactivaciones.
+        </p>
+
+        <div class="resumen">
+            <div class="tarjeta">
+                Cupo total
+                <span class="numero"
+                      th:text="${cupos.cupoTotal}"></span>
+            </div>
+
+            <div class="tarjeta">
+                Inscritos activos
+                <span class="numero"
+                      th:text="${cupos.inscritosActivos}"></span>
+            </div>
+
+            <div class="tarjeta">
+                Cupos disponibles
+                <span class="numero"
+                      th:text="${cupos.cuposDisponibles}"></span>
+            </div>
+        </div>
+
+        <h2>Inscripciones del curso</h2>
+        <p>Incluye inscripciones activas y canceladas.</p>
+
+        <p th:if="${#lists.isEmpty(inscripciones)}">
+            Este curso aún no tiene inscripciones.
+        </p>
+
+        <div class="tabla"
+             th:unless="${#lists.isEmpty(inscripciones)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Participante</th>
+                    <th>Fecha de inscripción</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="inscripcion : ${inscripciones}">
+                    <td th:text="${inscripcion.nombreParticipante}"></td>
+                    <td th:text="${inscripcion.fechaInscripcion}"></td>
+                    <td th:text="${inscripcion.estado}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="acciones">
+            <a th:href="@{/cursos}">Volver al listado</a>
+            <a th:href="@{/cursos/{id}/editar(id=${curso.id})}">
+                Editar curso
+            </a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
