@@ -63,3 +63,46 @@ La conexión a la base de datos se gestiona en cursos-api.
 4. Verificar el mensaje de éxito y el curso en el listado.
 
 Si la API no está disponible, la web muestra un mensaje de error.
+
+## Ejecutar con MySQL
+
+La API permite utilizar MySQL para conservar los datos entre reinicios.
+El perfil `demo` continúa disponible con H2 en memoria.
+
+### Preparar la base de datos
+
+Con MySQL ejecutándose en localhost:3306:
+
+```sql
+CREATE DATABASE IF NOT EXISTS cursos_db
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+```
+
+JPA crea o actualiza las tablas al iniciar la API con el perfil `mysql`,
+según las entidades y la configuración `ddl-auto=update`.
+
+### Configurar IntelliJ IDEA
+
+En Run → Edit Configurations → CursosApiApplication:
+
+- Active profiles: `mysql`.
+- Environment variables:
+  - `DB_USERNAME`: usuario de MySQL.
+  - `DB_PASSWORD`: contraseña de ese usuario.
+
+Las credenciales se configuran localmente; no deben escribirse en
+archivos versionados.
+
+### Iniciar las aplicaciones
+
+1. Mantener MySQL ejecutándose.
+2. Ejecutar CursosApiApplication en el puerto 8080.
+3. Ejecutar CursosWebApplication en el puerto 8081.
+4. Abrir http://localhost:8081/.
+
+### Persistencia
+
+Con el perfil `mysql`, los datos permanecen después de reiniciar la API.
+Los datos de H2 del perfil `demo` son independientes y no se transfieren
+automáticamente a MySQL.
