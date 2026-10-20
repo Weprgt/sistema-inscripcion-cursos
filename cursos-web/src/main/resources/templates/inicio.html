@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio | Sistema de inscripciones</title>
+</head>
+
+<body>
+<header>
+    <h1>Sistema de inscripción a cursos</h1>
+</header>
+
+<nav aria-label="Navegación principal">
+    <a th:href="@{/}">Inicio</a>
+    <a th:href="@{/cursos}">Cursos</a>
+    <a th:href="@{/participantes}">Participantes</a>
+    <a th:href="@{/inscripciones}">Inscripciones</a>
+</nav>
+
+<main>
+    <h2>Bienvenido</h2>
+    <p>Selecciona un módulo para comenzar.</p>
+
+    <section aria-labelledby="titulo-cursos">
+        <h3 id="titulo-cursos">Cursos</h3>
+        <p>
+            Registra y administra cursos, consulta sus inscritos
+            y revisa los cupos disponibles.
+        </p>
+        <a th:href="@{/cursos}">Ir a cursos</a>
+    </section>
+
+    <section aria-labelledby="titulo-participantes">
+        <h3 id="titulo-participantes">Participantes</h3>
+        <p>
+            Registra participantes y administra sus datos de contacto.
+        </p>
+        <a th:href="@{/participantes}">Ir a participantes</a>
+    </section>
+
+    <section aria-labelledby="titulo-inscripciones">
+        <h3 id="titulo-inscripciones">Inscripciones</h3>
+        <p>
+            Inscribe participantes en cursos y consulta,
+            cancela o reactiva sus inscripciones.
+        </p>
+        <a th:href="@{/inscripciones}">Ir a inscripciones</a>
+    </section>
+</main>
+</body>
+</html>
