@@ -100,4 +100,33 @@ public class CursoDaoJpa implements GenericDao<Curso, Long> {
                 jakarta.persistence.LockModeType.PESSIMISTIC_WRITE
         ));
     }
+    public List<Curso> buscar(String texto, Boolean activo) {
+        String jpql = """
+            SELECT c FROM Curso c
+            WHERE (
+                LOCATE(:texto, LOWER(c.codigo)) > 0
+                OR LOCATE(:texto, LOWER(c.nombre)) > 0
+            )
+            """;
+
+        if (activo != null) {
+            jpql += " AND c.activo = :activo";
+        }
+
+        jpql += """
+             ORDER BY
+                 CASE WHEN c.activo = true THEN 0 ELSE 1 END,
+                 LOWER(c.nombre),
+                 c.id
+            """;
+
+        var consulta = entityManager.createQuery(jpql, Curso.class)
+                .setParameter("texto", texto);
+
+        if (activo != null) {
+            consulta.setParameter("activo", activo);
+        }
+
+        return consulta.getResultList();
+    }
 }

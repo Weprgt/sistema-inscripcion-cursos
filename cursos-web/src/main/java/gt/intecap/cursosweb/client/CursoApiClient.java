@@ -96,4 +96,31 @@ public class CursoApiClient {
                 .retrieve()
                 .toBodilessEntity();
     }
+
+    /**
+     * Busca cursos por código o nombre y filtra por estado.
+     */
+    public List<CursoRespuesta> buscar(String texto, Boolean activo) {
+        return restClient.get()
+                .uri(uriBuilder -> {
+                    var uri = uriBuilder.path("/api/cursos");
+
+                    if (texto != null && !texto.isBlank()) {
+                        uri.queryParam("texto", "{texto}");
+                    }
+
+                    if (activo != null) {
+                        uri.queryParam("activo", activo);
+                    }
+
+                    if (texto != null && !texto.isBlank()) {
+                        return uri.build(texto.trim());
+                    }
+
+                    return uri.build();
+                })
+                .retrieve()
+                .body(new ParameterizedTypeReference<
+                        List<CursoRespuesta>>() {});
+    }
 }

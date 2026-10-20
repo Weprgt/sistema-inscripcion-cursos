@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import gt.intecap.cursosapi.dao.InscripcionDaoJpa;
 import gt.intecap.cursosapi.dto.CupoCursoRespuesta;
-
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Gestiona las operaciones y validaciones de los cursos.
@@ -161,5 +161,16 @@ public class CursoService {
         }
 
         cursoDao.eliminarPorId(id);
+    }
+
+    /**
+     * Busca cursos por texto y estado, con activos primero.
+     */
+    public List<Curso> buscar(String texto, Boolean activo) {
+        String textoNormalizado = texto == null
+                ? ""
+                : texto.trim().toLowerCase(Locale.ROOT);
+
+        return cursoDao.buscar(textoNormalizado, activo);
     }
 }

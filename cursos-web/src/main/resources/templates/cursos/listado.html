@@ -121,56 +121,116 @@
         <p>
             <a th:href="@{/cursos/nuevo}">+ Registrar curso</a>
         </p>
+            <form th:action="@{/cursos}"
+                  method="get"
+                  style="display: flex; flex-wrap: wrap; gap: 16px;
+             align-items: end; margin: 24px 0;">
 
-        <div class="tabla" th:unless="${#lists.isEmpty(cursos)}">
-            <table>
-                <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Modalidad</th>
-                    <th>Fecha de inicio</th>
-                    <th>Cupo total</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                <div>
+                    <label for="texto">Buscar curso</label>
+                    <input id="texto"
+                           name="texto"
+                           type="search"
+                           th:value="${texto}"
+                           placeholder="Código o nombre">
+                </div>
 
-                </tr>
-                </thead>
+                <div>
+                    <label for="activo">Estado</label>
+                    <select id="activo" name="activo">
+                        <option value=""
+                                th:selected="${activo == null}">
+                            Todos
+                        </option>
+                        <option value="true"
+                                th:selected="${activo == true}">
+                            Activos
+                        </option>
+                        <option value="false"
+                                th:selected="${activo == false}">
+                            Inactivos
+                        </option>
+                    </select>
+                </div>
 
-                <tbody>
-                <tr th:each="curso : ${cursos}">
-                    <td th:text="${curso.codigo}"></td>
-                    <td th:text="${curso.nombre}"></td>
-                    <td th:text="${curso.modalidad}"></td>
-                    <td th:text="${curso.fechaInicio}"></td>
-                    <td th:text="${curso.cupo}"></td>
-                    <td>
-                        <a th:href="@{/cursos/{id}(id=${curso.id})}">
-                            Ver detalle
-                        </a>
-                        <span> | </span>
-                        <a th:href="@{/cursos/{id}/editar(id=${curso.id})}">
-                            Editar
-                        </a>
-                        <form th:action="@{/cursos/{id}/eliminar(id=${curso.id})}"
-                              method="post"
-                              style="display: inline;"
-                              onsubmit="return confirm('¿Eliminar este curso definitivamente?');">
-                            <button type="submit">Eliminar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <span class="estado"
-                              th:classappend="${curso.activo == true}
-                                  ? 'activo' : 'inactivo'"
-                              th:text="${curso.activo == true}
-                                  ? 'Activo' : 'Inactivo'">
-                        </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <button type="submit">Buscar</button>
+                <a th:href="@{/cursos}">Limpiar filtros</a>
+            </form>
+
+            <p>Orden: cursos activos primero y después por nombre.</p>
+
+            <div class="vacio"
+                 th:if="${errorListado == null and #lists.isEmpty(cursos)}">
+
+                <p th:if="${activo == false}"
+                   th:text="${#strings.isEmpty(texto)}
+           ? 'No hay cursos inactivos.'
+           : 'No hay cursos inactivos que coincidan con la búsqueda.'">
+                </p>
+
+                <p th:if="${activo == true}"
+                   th:text="${#strings.isEmpty(texto)}
+           ? 'No hay cursos activos.'
+           : 'No hay cursos activos que coincidan con la búsqueda.'">
+                </p>
+
+                <p th:if="${activo == null}">
+                    No se encontraron cursos.
+                </p>
+            </div>
+
+            <div class="tabla" th:unless="${#lists.isEmpty(cursos)}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Modalidad</th>
+                        <th>Fecha de inicio</th>
+                        <th>Cupo total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="curso : ${cursos}">
+                        <td th:text="${curso.codigo}"></td>
+                        <td th:text="${curso.nombre}"></td>
+                        <td th:text="${curso.modalidad}"></td>
+                        <td th:text="${curso.fechaInicio}"></td>
+                        <td th:text="${curso.cupo}"></td>
+
+                        <td>
+                <span class="estado"
+                      th:classappend="${curso.activo == true}
+                          ? 'activo' : 'inactivo'"
+                      th:text="${curso.activo == true}
+                          ? 'Activo' : 'Inactivo'">
+                </span>
+                        </td>
+
+                        <td>
+                            <a th:href="@{/cursos/{id}(id=${curso.id})}">
+                                Ver detalle
+                            </a>
+                            <span> | </span>
+
+                            <a th:href="@{/cursos/{id}/editar(id=${curso.id})}">
+                                Editar
+                            </a>
+
+                            <form th:action="@{/cursos/{id}/eliminar(id=${curso.id})}"
+                                  method="post"
+                                  style="display: inline;"
+                                  onsubmit="return confirm('¿Eliminar este curso definitivamente?');">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
     </section>
 </main>
 </body>

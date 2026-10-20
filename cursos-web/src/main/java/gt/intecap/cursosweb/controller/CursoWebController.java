@@ -23,9 +23,19 @@ public class CursoWebController {
     }
 
     @GetMapping
-    public String listar(Model model) {
+    public String listar(
+            @RequestParam(name = "texto", defaultValue = "") String texto,
+            @RequestParam(name = "activo", required = false) Boolean activo,
+            Model model
+    ) {
+        model.addAttribute("texto", texto);
+        model.addAttribute("activo", activo);
+
         try {
-            model.addAttribute("cursos", cursoApiClient.listar());
+            model.addAttribute(
+                    "cursos",
+                    cursoApiClient.buscar(texto, activo)
+            );
         } catch (RestClientException ex) {
             model.addAttribute("cursos", List.of());
             model.addAttribute(

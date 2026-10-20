@@ -27,12 +27,14 @@ public class CursoController {
     }
 
     /**
-     * Lista los cursos.
-     * @return cursos registrados
+     * Lista y busca cursos, con filtro opcional por estado.
      */
     @GetMapping
-    public List<Curso> listar() {
-        return cursoService.listar();
+    public List<Curso> listar(
+            @RequestParam(name = "texto", defaultValue = "") String texto,
+            @RequestParam(name = "activo", required = false) Boolean activo
+    ) {
+        return cursoService.buscar(texto, activo);
     }
 
     /**
