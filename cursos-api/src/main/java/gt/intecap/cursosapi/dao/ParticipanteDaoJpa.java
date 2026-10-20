@@ -91,4 +91,24 @@ public class ParticipanteDaoJpa implements GenericDao<Participante, Long> {
 
         return consulta.getSingleResult() > 0;
     }
+    /**
+     * Busca participantes por nombres, apellidos o correo.
+     * @param texto texto normalizado a minúsculas
+     * @return participantes encontrados
+     */
+    public List<Participante> buscar(String texto) {
+        return entityManager.createQuery("""
+            SELECT p FROM Participante p
+            WHERE LOCATE(:texto, LOWER(p.nombres)) > 0
+               OR LOCATE(:texto, LOWER(p.apellidos)) > 0
+               OR LOCATE(
+                    :texto,
+                    LOWER(CONCAT(CONCAT(p.nombres, ' '), p.apellidos))
+                  ) > 0
+               OR LOCATE(:texto, LOWER(p.correo)) > 0
+            ORDER BY LOWER(p.apellidos), LOWER(p.nombres), p.id
+            """, Participante.class)
+                .setParameter("texto", texto)
+                .getResultList();
+    }
 }

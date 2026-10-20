@@ -130,4 +130,14 @@ public class ParticipanteService {
             );
         }
     }
+    /**
+     * Normaliza el texto y busca participantes.
+     */
+    public List<Participante> buscar(String texto) {
+        String textoNormalizado = texto == null
+                ? ""
+                : texto.trim().toLowerCase(Locale.ROOT);
+
+        return participanteDao.buscar(textoNormalizado);
+    }
 }

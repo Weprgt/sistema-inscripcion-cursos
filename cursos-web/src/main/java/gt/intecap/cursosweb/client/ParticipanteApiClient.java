@@ -21,9 +21,28 @@ public class ParticipanteApiClient {
         this.restClient = cursosRestClient;
     }
 
+    /**
+     * Obtiene todos los participantes para los formularios.
+     */
     public List<ParticipanteRespuesta> listar() {
+        return buscar("");
+    }
+
+    /**
+     * Busca participantes por nombre, apellidos o correo.
+     */
+    public List<ParticipanteRespuesta> buscar(String texto) {
         return restClient.get()
-                .uri("/api/participantes")
+                .uri(uriBuilder -> {
+                    var uri = uriBuilder.path("/api/participantes");
+
+                    if (texto != null && !texto.isBlank()) {
+                        return uri.queryParam("texto", "{texto}")
+                                .build(texto.trim());
+                    }
+
+                    return uri.build();
+                })
                 .retrieve()
                 .body(new ParameterizedTypeReference<
                         List<ParticipanteRespuesta>>() {});

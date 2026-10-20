@@ -30,8 +30,10 @@ public class ParticipanteController {
      * @return participantes registrados
      */
     @GetMapping
-    public List<Participante> listar() {
-        return participanteService.listar();
+    public List<Participante> listar(
+            @RequestParam(name = "texto", defaultValue = "") String texto
+    ) {
+        return participanteService.buscar(texto);
     }
 
     /**
