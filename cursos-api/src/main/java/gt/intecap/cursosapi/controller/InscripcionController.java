@@ -30,8 +30,10 @@ public class InscripcionController {
      * @return inscripciones registradas
      */
     @GetMapping
-    public List<InscripcionRespuesta> listar() {
-        return inscripcionService.listar();
+    public List<InscripcionRespuesta> listar(
+            @RequestParam(name = "texto", defaultValue = "") String texto
+    ) {
+        return inscripcionService.buscar(texto);
     }
 
     /**

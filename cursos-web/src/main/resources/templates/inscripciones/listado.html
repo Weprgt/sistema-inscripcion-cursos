@@ -96,9 +96,27 @@
         </div>
 
         <p th:if="${errorListado == null
-                and #lists.isEmpty(inscripciones)}">
-            Aún no hay inscripciones registradas.
+        and #lists.isEmpty(inscripciones)}">
+            No se encontraron inscripciones. Si aplicaste una búsqueda, prueba cambiarla.
         </p>
+
+        <form th:action="@{/inscripciones}"
+              method="get"
+              style="display: flex; flex-wrap: wrap; gap: 16px;
+             align-items: end; margin: 24px 0;">
+
+            <div>
+                <label for="texto">Buscar inscripción</label>
+                <input id="texto"
+                       name="texto"
+                       type="search"
+                       th:value="${texto}"
+                       placeholder="Nombre del curso o participante">
+            </div>
+
+            <button type="submit">Buscar</button>
+            <a th:href="@{/inscripciones}">Limpiar búsqueda</a>
+        </form>
 
         <div class="tabla"
              th:unless="${#lists.isEmpty(inscripciones)}">
@@ -109,6 +127,7 @@
                     <th>Participante</th>
                     <th>Fecha de inscripción</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
 

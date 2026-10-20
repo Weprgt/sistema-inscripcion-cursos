@@ -5,9 +5,9 @@ import gt.intecap.cursosapi.model.Inscripcion;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
+
 
 /**
  * Implementa el acceso a las inscripciones mediante JPA.
@@ -146,5 +146,28 @@ public class InscripcionDaoJpa implements GenericDao<Inscripcion, Long> {
                 """, Long.class)
                 .setParameter("idParticipante", idParticipante)
                 .getSingleResult() > 0;
+    }
+
+    /**
+     * Busca inscripciones por nombre del curso o del participante.
+     * @param texto texto normalizado a minúsculas
+     * @return inscripciones encontradas
+     */
+    public List<Inscripcion> buscar(String texto) {
+        return entityManager.createQuery("""
+            SELECT i FROM Inscripcion i
+            JOIN FETCH i.curso c
+            JOIN FETCH i.participante p
+            WHERE LOCATE(:texto, LOWER(c.nombre)) > 0
+               OR LOCATE(:texto, LOWER(p.nombres)) > 0
+               OR LOCATE(:texto, LOWER(p.apellidos)) > 0
+               OR LOCATE(
+                    :texto,
+                    LOWER(CONCAT(CONCAT(p.nombres, ' '), p.apellidos))
+                  ) > 0
+            ORDER BY i.id DESC
+            """, Inscripcion.class)
+                .setParameter("texto", texto)
+                .getResultList();
     }
 }

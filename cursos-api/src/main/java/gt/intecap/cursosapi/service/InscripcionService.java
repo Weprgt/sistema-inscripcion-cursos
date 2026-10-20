@@ -9,9 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Gestiona las inscripciones y sus reglas de negocio.
@@ -189,5 +189,18 @@ public class InscripcionService {
                 inscripcion.getFechaInscripcion(),
                 inscripcion.getEstado()
         );
+    }
+
+    /**
+     * Busca inscripciones por curso o participante.
+     */
+    public List<InscripcionRespuesta> buscar(String texto) {
+        String textoNormalizado = texto == null
+                ? ""
+                : texto.trim().toLowerCase(Locale.ROOT);
+
+        return inscripcionDao.buscar(textoNormalizado).stream()
+                .map(this::convertir)
+                .toList();
     }
 }

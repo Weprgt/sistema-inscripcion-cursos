@@ -34,11 +34,16 @@ public class InscripcionWebController {
     }
 
     @GetMapping
-    public String listar(Model model) {
+    public String listar(
+            @RequestParam(name = "texto", defaultValue = "") String texto,
+            Model model
+    ) {
+        model.addAttribute("texto", texto);
+
         try {
             model.addAttribute(
                     "inscripciones",
-                    inscripcionApiClient.listar()
+                    inscripcionApiClient.buscar(texto)
             );
         } catch (RestClientException ex) {
             model.addAttribute("inscripciones", List.of());

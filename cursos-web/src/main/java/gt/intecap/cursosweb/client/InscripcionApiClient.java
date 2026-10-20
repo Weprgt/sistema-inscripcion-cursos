@@ -49,4 +49,24 @@ public class InscripcionApiClient {
                 .retrieve()
                 .body(InscripcionRespuesta.class);
     }
+
+    /**
+     * Busca inscripciones por curso o participante.
+     */
+    public List<InscripcionRespuesta> buscar(String texto) {
+        return restClient.get()
+                .uri(uriBuilder -> {
+                    var uri = uriBuilder.path("/api/inscripciones");
+
+                    if (texto != null && !texto.isBlank()) {
+                        return uri.queryParam("texto", "{texto}")
+                                .build(texto.trim());
+                    }
+
+                    return uri.build();
+                })
+                .retrieve()
+                .body(new ParameterizedTypeReference<
+                        List<InscripcionRespuesta>>() {});
+    }
 }
