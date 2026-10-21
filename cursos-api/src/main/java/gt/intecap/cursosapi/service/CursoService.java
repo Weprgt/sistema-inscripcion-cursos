@@ -10,11 +10,15 @@ import gt.intecap.cursosapi.dao.InscripcionDaoJpa;
 import gt.intecap.cursosapi.dto.CupoCursoRespuesta;
 import java.util.List;
 import java.util.Locale;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Gestiona las operaciones y validaciones de los cursos.
  */
 @Service
+@Validated
 @Transactional(readOnly = true)
 public class CursoService {
 
@@ -59,7 +63,7 @@ public class CursoService {
      * @return curso registrado
      */
     @Transactional
-    public Curso crear(Curso curso) {
+    public Curso crear(@NotNull @Valid Curso curso) {
         normalizarTextos(curso);
         validarCodigo(curso.getCodigo(), null);
         curso.setId(null);
@@ -74,7 +78,7 @@ public class CursoService {
      * @return curso actualizado
      */
     @Transactional
-    public Curso actualizar(Long id, Curso datos) {
+    public Curso actualizar(Long id, @NotNull @Valid Curso datos) {
         Curso curso = cursoDao.buscarPorIdConBloqueo(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,

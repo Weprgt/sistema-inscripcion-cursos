@@ -88,7 +88,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java\",\r\n  \"descripcion\": \"Curso de fundamentos de programación en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"fechaInicio\": \"2026-11-02\",\r\n  \"cupo\": 2,\r\n  \"activo\": true\r\n}",
+                  "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -163,6 +163,61 @@
                   ],
                   "cookie": [],
                   "body": "{\n  \"id\": 1,\n  \"codigo\": \"JAVA-01\",\n  \"nombre\": \"Introducción a Java\",\n  \"descripcion\": \"Curso de fundamentos de programación en Java.\",\n  \"modalidad\": \"PRESENCIAL\",\n  \"cupo\": 25,\n  \"fechaInicio\": \"2026-11-02\",\n  \"activo\": true\n}"
+                },
+                {
+                  "name": "201 - HU01 - Curso válido con cupo máximo.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:22:37 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": 2,\n  \"codigo\": \"HU01-JAVA-01\",\n  \"nombre\": \"Fundamentos de programación en Java\",\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\n  \"modalidad\": \"PRESENCIAL\",\n  \"cupo\": 40,\n  \"fechaInicio\": \"2026-11-09\",\n  \"activo\": true\n}"
                 }
               ]
             },
@@ -980,6 +1035,516 @@
                   ],
                   "cookie": [],
                   "body": "{\n  \"timestamp\": \"2026-10-16T01:04:05.512+00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"path\": \"/api/cursos/99999/cupos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Cupo vacío",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-CUPO-NULL\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": null,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU01 - Cupo obligatorio",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Cupo mínimo válido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-CUPO-1\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 1,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "201 - HU01 - Curso válido con cupo mínimo",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Cupo decimal",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-CUPO-DEC\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 2.5,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU01 - Cupo decimal rechazado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Cupo superior a 41",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-CUPO-41\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 41,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU01 - Cupo mayor que 40",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 41,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Cupo cero",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-CUPO-0\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 0,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU01 - Cupo menor que 1",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar curso - Código duplicado",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "409 - HU01 - Código de curso duplicado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"HU01-JAVA-01\",\r\n  \"nombre\": \"Fundamentos de programación en Java\",\r\n  \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"cupo\": 40,\r\n  \"fechaInicio\": \"2026-11-09\",\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 21:25:22 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-21T21:25:22.372+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos\"\n}"
                 }
               ]
             }
