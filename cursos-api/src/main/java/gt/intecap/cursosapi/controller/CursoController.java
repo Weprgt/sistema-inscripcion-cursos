@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import gt.intecap.cursosapi.dto.CupoCursoRespuesta;
+import gt.intecap.cursosapi.model.Modalidad;
 
 import java.util.List;
 
@@ -27,14 +28,15 @@ public class CursoController {
     }
 
     /**
-     * Lista y busca cursos, con filtro opcional por estado.
+     * Lista y busca cursos con filtros opcionales por estado y modalidad.
      */
     @GetMapping
     public List<Curso> listar(
             @RequestParam(name = "texto", defaultValue = "") String texto,
-            @RequestParam(name = "activo", required = false) Boolean activo
+            @RequestParam(name = "activo", required = false) Boolean activo,
+            @RequestParam(name = "modalidad", required = false) Modalidad modalidad
     ) {
-        return cursoService.buscar(texto, activo);
+        return cursoService.buscar(texto, activo, modalidad);
     }
 
     /**

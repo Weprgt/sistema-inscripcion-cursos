@@ -706,6 +706,153 @@
                   "body": "{\n  \"idCurso\": 1,\n  \"nombreCurso\": \"Introducción a Java\",\n  \"activo\": true,\n  \"cupoTotal\": 2,\n  \"inscritosActivos\": 0,\n  \"cuposDisponibles\": 2\n}"
                 }
               ]
+            },
+            {
+              "name": "Listar cursos - Modalidad virtual",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos?modalidad=VIRTUAL",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ],
+                  "query": [
+                    {
+                      "key": "modalidad",
+                      "value": "VIRTUAL"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "200 - HU02 - Filtro por modalidad virtual",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos?modalidad=VIRTUAL",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ],
+                      "query": [
+                        {
+                          "key": "modalidad",
+                          "value": "VIRTUAL"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Wed, 21 Oct 2026 22:49:30 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "[\n  {\n    \"id\": 3,\n    \"codigo\": \"HU01-CUPO-1\",\n    \"nombre\": \"Fundamentos de programación en Java\",\n    \"descripcion\": \"Curso práctico de variables, condiciones, ciclos y métodos en Java.\",\n    \"modalidad\": \"VIRTUAL\",\n    \"cupo\": 1,\n    \"fechaInicio\": \"2026-11-09\",\n    \"activo\": true\n  },\n  {\n    \"id\": 4,\n    \"codigo\": \"HU01-WEB-01\",\n    \"nombre\": \"Introducción al desarrollo web\",\n    \"descripcion\": \"Desarrollo de páginas web con HTML, CSS y JavaScript\",\n    \"modalidad\": \"VIRTUAL\",\n    \"cupo\": 1,\n    \"fechaInicio\": \"2026-02-12\",\n    \"activo\": true\n  }\n]"
+                }
+              ]
+            },
+            {
+              "name": "Buscar cursos - Nombre y modalidad sin resultados",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "response": [
+                {
+                  "name": "200 - HU02 - Búsqueda combinada sin resultados",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos?texto=Java&modalidad=VIRTUAL",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos"
+                      ],
+                      "query": [
+                        {
+                          "key": "texto",
+                          "value": "Java"
+                        },
+                        {
+                          "key": "modalidad",
+                          "value": "VIRTUAL"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Thu, 22 Oct 2026 00:09:51 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "[]"
+                }
+              ]
             }
           ]
         },

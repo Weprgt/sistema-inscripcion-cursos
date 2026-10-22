@@ -4,9 +4,9 @@ import gt.intecap.cursosapi.model.Curso;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
+import gt.intecap.cursosapi.model.Modalidad;
 
 /**
  * Implementa el acceso a los cursos mediante JPA.
@@ -101,6 +101,18 @@ public class CursoDaoJpa implements GenericDao<Curso, Long> {
         ));
     }
     public List<Curso> buscar(String texto, Boolean activo) {
+        return buscar(texto, activo, null);
+    }
+
+    /**
+     * Busca cursos por código o nombre, estado y modalidad.
+     * Los filtros de estado y modalidad son opcionales.
+     */
+    public List<Curso> buscar(
+            String texto,
+            Boolean activo,
+            Modalidad modalidad
+    ) {
         String jpql = """
             SELECT c FROM Curso c
             WHERE (
@@ -111,6 +123,10 @@ public class CursoDaoJpa implements GenericDao<Curso, Long> {
 
         if (activo != null) {
             jpql += " AND c.activo = :activo";
+        }
+
+        if (modalidad != null) {
+            jpql += " AND c.modalidad = :modalidad";
         }
 
         jpql += """
@@ -125,6 +141,10 @@ public class CursoDaoJpa implements GenericDao<Curso, Long> {
 
         if (activo != null) {
             consulta.setParameter("activo", activo);
+        }
+
+        if (modalidad != null) {
+            consulta.setParameter("modalidad", modalidad);
         }
 
         return consulta.getResultList();

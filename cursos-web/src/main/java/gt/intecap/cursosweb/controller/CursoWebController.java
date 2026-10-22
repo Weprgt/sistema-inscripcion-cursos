@@ -26,15 +26,17 @@ public class CursoWebController {
     public String listar(
             @RequestParam(name = "texto", defaultValue = "") String texto,
             @RequestParam(name = "activo", required = false) Boolean activo,
+            @RequestParam(name = "modalidad", defaultValue = "") String modalidad,
             Model model
     ) {
         model.addAttribute("texto", texto);
         model.addAttribute("activo", activo);
+        model.addAttribute("modalidad", modalidad);
 
         try {
             model.addAttribute(
                     "cursos",
-                    cursoApiClient.buscar(texto, activo)
+                    cursoApiClient.buscar(texto, activo, modalidad)
             );
         } catch (RestClientException ex) {
             model.addAttribute("cursos", List.of());

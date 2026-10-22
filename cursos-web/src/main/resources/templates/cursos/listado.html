@@ -66,6 +66,28 @@
                 <div class="col-auto">
                     <button class="btn btn-outline-primary" type="submit">Buscar</button>
                 </div>
+                <div>
+                    <label for="modalidad" class="form-label">Modalidad</label>
+                    <select id="modalidad"
+                            name="modalidad"
+                            class="form-select">
+                        <option value="" th:selected="${modalidad == ''}">
+                            Todas
+                        </option>
+                        <option value="PRESENCIAL"
+                                th:selected="${modalidad == 'PRESENCIAL'}">
+                            Presencial
+                        </option>
+                        <option value="VIRTUAL"
+                                th:selected="${modalidad == 'VIRTUAL'}">
+                            Virtual
+                        </option>
+                        <option value="MIXTA"
+                                th:selected="${modalidad == 'MIXTA'}">
+                            Mixta
+                        </option>
+                    </select>
+                </div>
                 <div class="col-auto">
                     <a class="btn btn-outline-secondary" th:href="@{/cursos}">Limpiar filtros</a>
                 </div>

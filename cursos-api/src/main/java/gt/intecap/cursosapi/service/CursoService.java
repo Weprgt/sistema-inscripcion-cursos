@@ -13,6 +13,7 @@ import java.util.Locale;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
+import gt.intecap.cursosapi.model.Modalidad;
 
 /**
  * Gestiona las operaciones y validaciones de los cursos.
@@ -167,14 +168,22 @@ public class CursoService {
         cursoDao.eliminarPorId(id);
     }
 
-    /**
-     * Busca cursos por texto y estado, con activos primero.
-     */
     public List<Curso> buscar(String texto, Boolean activo) {
+        return buscar(texto, activo, null);
+    }
+
+    /**
+     * Busca cursos por texto, estado y modalidad.
+     */
+    public List<Curso> buscar(
+            String texto,
+            Boolean activo,
+            Modalidad modalidad
+    ) {
         String textoNormalizado = texto == null
                 ? ""
                 : texto.trim().toLowerCase(Locale.ROOT);
 
-        return cursoDao.buscar(textoNormalizado, activo);
+        return cursoDao.buscar(textoNormalizado, activo, modalidad);
     }
 }

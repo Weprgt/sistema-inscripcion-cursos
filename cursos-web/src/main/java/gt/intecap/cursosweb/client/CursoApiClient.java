@@ -97,15 +97,25 @@ public class CursoApiClient {
                 .toBodilessEntity();
     }
 
-    /**
-     * Busca cursos por código o nombre y filtra por estado.
-     */
     public List<CursoRespuesta> buscar(String texto, Boolean activo) {
+        return buscar(texto, activo, null);
+    }
+
+    /**
+     * Busca cursos por texto, estado y modalidad.
+     */
+    public List<CursoRespuesta> buscar(
+            String texto,
+            Boolean activo,
+            String modalidad
+    ) {
         return restClient.get()
                 .uri(uriBuilder -> {
                     var uri = uriBuilder.path("/api/cursos");
 
-                    if (texto != null && !texto.isBlank()) {
+                    boolean tieneTexto = texto != null && !texto.isBlank();
+
+                    if (tieneTexto) {
                         uri.queryParam("texto", "{texto}");
                     }
 
@@ -113,11 +123,21 @@ public class CursoApiClient {
                         uri.queryParam("activo", activo);
                     }
 
-                    if (texto != null && !texto.isBlank()) {
-                        return uri.build(texto.trim());
+                    if (modalidad != null && !modalidad.isBlank()) {
+                        uri.queryParam("modalidad", "{modalidad}");
                     }
 
-                    return uri.build();
+                    var parametros = new java.util.HashMap<String, Object>();
+
+                    if (tieneTexto) {
+                        parametros.put("texto", texto.trim());
+                    }
+
+                    if (modalidad != null && !modalidad.isBlank()) {
+                        parametros.put("modalidad", modalidad.trim());
+                    }
+
+                    return uri.build(parametros);
                 })
                 .retrieve()
                 .body(new ParameterizedTypeReference<
