@@ -2342,7 +2342,7 @@
               },
               "response": [
                 {
-                  "name": "409 - Correo duplicado",
+                  "name": "409 - HU05 - Correo duplicado rechazado",
                   "originalRequest": {
                     "method": "POST",
                     "header": [],
@@ -2561,6 +2561,87 @@
                   ],
                   "cookie": [],
                   "body": "{\n  \"timestamp\": \"2026-10-16T00:07:00.052+00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"path\": \"/api/participantes/1\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Registrar participante - Correo inválido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nombres\": \"Carlos\",\r\n  \"apellidos\": \"Pérez García\",\r\n  \"correo\": \"carlos.perez@example.com\",\r\n  \"telefono\": \"52345678\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/participantes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "participantes"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU05 - Correo inválido rechazado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"nombres\": \"Prueba\",\r\n  \"apellidos\": \"Correo inválido\",\r\n  \"correo\": \"correo-sin-arroba\",\r\n  \"telefono\": \"51234567\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/participantes",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "participantes"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Thu, 22 Oct 2026 00:41:21 GMT"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-22T00:41:21.459+00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"path\": \"/api/participantes\"\n}"
                 }
               ]
             }
