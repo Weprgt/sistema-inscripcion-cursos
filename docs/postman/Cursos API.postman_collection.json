@@ -3048,7 +3048,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/inscripciones/curso/1",
+                  "raw": "http://localhost:8080/api/inscripciones",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -3056,9 +3056,7 @@
                   "port": "8080",
                   "path": [
                     "api",
-                    "inscripciones",
-                    "curso",
-                    "1"
+                    "inscripciones"
                   ]
                 }
               },
@@ -3441,6 +3439,142 @@
                   ],
                   "cookie": [],
                   "body": "{\n  \"timestamp\": \"2026-10-16T01:04:58.104+00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"path\": \"/api/inscripciones/curso/99999\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Eliminar curso - Con inscripción activa",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "409 - HU04 - Eliminación rechazada con inscripción activa",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos",
+                        "1"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Thu, 22 Oct 2026 00:31:31 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-22T00:31:31.798+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos/1\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Eliminar curso - Con inscripción cancelada",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "409 - HU04 - Eliminación rechazada con inscripción cancelada",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Thu, 22 Oct 2026 00:31:31 GMT"
+                    },
+                    {
+                      "key": "keep-alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-22T00:31:31.798+00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"path\": \"/api/cursos/1\"\n}"
                 }
               ]
             }
