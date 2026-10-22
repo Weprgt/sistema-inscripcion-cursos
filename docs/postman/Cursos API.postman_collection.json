@@ -792,7 +792,26 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "http://localhost:8080/api/cursos?texto=Java&modalidad=VIRTUAL",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos"
+                  ],
+                  "query": [
+                    {
+                      "key": "texto",
+                      "value": "Java"
+                    },
+                    {
+                      "key": "modalidad",
+                      "value": "VIRTUAL"
+                    }
+                  ]
                 }
               },
               "response": [
@@ -975,6 +994,172 @@
               "response": [
                 {
                   "name": "400 - Cupo supera el máximo",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java - Actualizado\",\r\n  \"descripcion\": \"Curso de fundamentos de Java con ejercicios prácticos.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"fechaInicio\": \"2026-11-02\",\r\n  \"cupo\": 41,\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Fri, 16 Oct 2026 00:02:05 GMT"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-16T00:02:05.012+00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"path\": \"/api/cursos/1\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Actualizar curso - Cupo cero",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java - Actualizado\",\r\n  \"descripcion\": \"Curso de fundamentos de Java con ejercicios prácticos.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"fechaInicio\": \"2026-11-02\",\r\n  \"cupo\": 0,\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU03 - Cupo menor que 1 rechazado",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java - Actualizado\",\r\n  \"descripcion\": \"Curso de fundamentos de Java con ejercicios prácticos.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"fechaInicio\": \"2026-11-02\",\r\n  \"cupo\": 41,\r\n  \"activo\": true\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/cursos/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "cursos",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "date",
+                      "value": "Fri, 16 Oct 2026 00:02:05 GMT"
+                    },
+                    {
+                      "key": "connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"timestamp\": \"2026-10-16T00:02:05.012+00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"path\": \"/api/cursos/1\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Actualizar curso - Cupo decimal",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"codigo\": \"JAVA-01\",\r\n  \"nombre\": \"Introducción a Java - Actualizado\",\r\n  \"descripcion\": \"Curso de fundamentos de Java con ejercicios prácticos.\",\r\n  \"modalidad\": \"PRESENCIAL\",\r\n  \"fechaInicio\": \"2026-11-02\",\r\n  \"cupo\": 2.5,\r\n  \"activo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/cursos/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "cursos",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 - HU03 - Cupo decimal rechazado",
                   "originalRequest": {
                     "method": "PUT",
                     "header": [],
